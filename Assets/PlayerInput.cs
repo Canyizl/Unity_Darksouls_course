@@ -11,8 +11,8 @@ public class PlayerInput : MonoBehaviour
     public string keyLeft = "a";
     public string keyRight = "d";
 
-    public string keyA = "j";
-    public string keyB;
+    public string keyA = "left shift";
+    public string keyB = "j";
     public string keyC;
     public string keyD;
 
@@ -25,6 +25,8 @@ public class PlayerInput : MonoBehaviour
     // 1.pressing signal
     public bool Run;
     // 2.trigger once signal
+    public bool Jump;
+    private bool lastJump;
     // 3. double trigger
 
     [Header("====== Others =====")]
@@ -64,6 +66,16 @@ public class PlayerInput : MonoBehaviour
         Dvec = Dright2 * transform.right + Dup2 * transform.forward;
 
         Run = Input.GetKey(keyA);
+
+        bool newJump = Input.GetKey(keyB);
+        if (newJump != lastJump && newJump == true)
+        {
+            Jump = true;
+        }
+        else
+        {
+            Jump = false;
+        }
     }
 
     private Vector2 SquareToCircle(Vector2 input)
