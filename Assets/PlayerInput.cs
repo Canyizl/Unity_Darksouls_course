@@ -16,17 +16,27 @@ public class PlayerInput : MonoBehaviour
     public string keyC;
     public string keyD;
 
+    public string keyJRight;
+    public string keyJLeft;
+    public string keyJUp;
+    public string keyJDown;
+
     [Header("====== Output signals =====")]
     public float Dup;
     public float Dright;
     public float Dmag;
     public Vector3 Dvec;
 
+    public float Jup;
+    public float Jright;
+
     // 1.pressing signal
     public bool Run;
     // 2.trigger once signal
     public bool Jump;
     private bool lastJump;
+    public bool attack;
+    private bool lastAttack;
     // 3. double trigger
 
     [Header("====== Others =====")]
@@ -46,6 +56,9 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
+        Jright = (Input.GetKey(keyJRight) ? 1.0f : 0 ) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
+
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
 
@@ -75,6 +88,16 @@ public class PlayerInput : MonoBehaviour
         else
         {
             Jump = false;
+        }
+
+        bool newAttack = Input.GetKey(keyC);
+        if (newAttack != lastAttack && newAttack == true)
+        {
+            attack = true;
+        }
+        else
+        {
+            attack = false;
         }
     }
 
